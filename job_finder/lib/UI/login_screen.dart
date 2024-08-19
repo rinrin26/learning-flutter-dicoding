@@ -7,6 +7,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _emailController = TextEditingController();
     return Scaffold(
       backgroundColor: const Color(0xFFCFD2E4),
       body: LayoutBuilder(
@@ -15,7 +16,7 @@ class LoginScreen extends StatelessWidget {
             child: Column(children: [
               _buildHeader(context),
               const SizedBox(height: 30),
-              buildFormLogin(context),
+              buildFormLogin(context,_emailController),
               const SizedBox(height: 50),
              
               SizedBox(
@@ -24,7 +25,7 @@ class LoginScreen extends StatelessWidget {
                 height: 55,
                 child: ElevatedButton(
                   onPressed: () {Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const HomeScreen()));
+                        MaterialPageRoute(builder: (context) =>  HomeScreen(email: _emailController.text,)));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF5A6081),
@@ -109,7 +110,7 @@ class LoginScreen extends StatelessWidget {
         ],
       );
 
-  Padding buildFormLogin(BuildContext context) => Padding(
+  Padding buildFormLogin(BuildContext context, TextEditingController _emailController) => Padding(
       padding: const EdgeInsets.all(16),
       child: Container(
         color: Colors.white,
@@ -129,6 +130,7 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               TextFormField(
+                controller: _emailController,
                 decoration: const InputDecoration(
                     labelText: 'Email',
                     border: OutlineInputBorder(),

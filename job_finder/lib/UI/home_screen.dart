@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final String email;
+  const HomeScreen({super.key,required this.email});
 
   @override
   State<StatefulWidget> createState() => _HomeScreenState();
@@ -100,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Text('See All',
                           style: Theme.of(context).textTheme.titleMedium),
+
                     ],
                   ),
                   buildCardJobsForYou(isLargeScreen),
@@ -154,6 +156,12 @@ class _HomeScreenState extends State<HomeScreen> {
             'Your Dream Jobs',
             style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                     fontSize: isLargeScreen ? 45 : 38,
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
+          
+          Text('Hi ${widget.email}', style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontSize: isLargeScreen ? 35 : 20,
                   fontWeight: FontWeight.w600,
                 ),
           ),
@@ -279,7 +287,7 @@ class _HomeScreenState extends State<HomeScreen> {
           itemBuilder: (context, int index) {
             final item = jobList[index];
             return SizedBox(
-              width: isLargeScreen ? 370 : 370,
+              width: isLargeScreen ? 370 : 360,
               child: Card(
                 color: const Color(0xFFCFD2E4),
                 elevation: 4.0,
