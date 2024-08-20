@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   final String email;
@@ -10,6 +9,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+   void _saveJob(int index) {
+    setState(() {
+      //merubah status save
+      jobList[index]['isSaved'] = !jobList[index]['isSaved'];
+    });
+  }
   final List<Map<String, dynamic>> jobList = [
     {
       'nama_perusahaan': 'PT Dicoding Akademi Indonesia',
@@ -18,7 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
       'gaji': '8 - 15 jt',
       'experience': '2 - 5',
       'type_work': ['Fulltime', 'Remote', 'Onsite'],
-      'logo': 'assets/images/dicoding.jpg'
+      'logo': 'assets/images/dicoding.jpg',
+      'isSaved': false,
     },
     {
       'nama_perusahaan': 'PT Shopee International Indonesia',
@@ -27,7 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
       'gaji': '8 - 15 jt',
       'experience': '2 - 5',
       'type_work': ['Fulltime', 'Remote', 'Onsite'],
-      'logo': 'assets/images/shopee.png'
+      'logo': 'assets/images/shopee.png',
+        'isSaved': false,
     },
     {
       'nama_perusahaan': 'PT Linkedin',
@@ -36,7 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
       'gaji': '8 - 15 jt',
       'experience': '2 - 5',
       'type_work': ['Fulltime', 'Remote', 'Onsite'],
-      'logo': 'assets/images/LinkedIn.png'
+      'logo': 'assets/images/LinkedIn.png',
+        'isSaved': false,
     },
     {
       'nama_perusahaan': 'PT GoTo Gojek Tokopedia Tbk.',
@@ -45,7 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
       'gaji': '8 - 15 jt',
       'experience': '2 - 5',
       'type_work': ['Fulltime', 'Remote', 'Onsite'],
-      'logo': 'assets/images/gojek.png'
+      'logo': 'assets/images/gojek.png',
+        'isSaved': false,
     },
     {
       'nama_perusahaan': 'Google',
@@ -54,7 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
       'gaji': '30 - 50 jt',
       'experience': '2 - 5',
       'type_work': ['Fulltime', 'Remote', 'Onsite'],
-      'logo': 'assets/images/google.png'
+      'logo': 'assets/images/google.png',
+        'isSaved': false,
     },
     {
       'nama_perusahaan': ' PT. Tokopedia.',
@@ -63,7 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
       'gaji': '8 - 15 jt',
       'experience': '2 - 5',
       'type_work': ['Fulltime', 'Remote', 'Onsite'],
-      'logo': 'assets/images/tokopedia.png'
+      'logo': 'assets/images/tokopedia.png',
+        'isSaved': false,
     },
     {
       'nama_perusahaan': ' Grab',
@@ -72,7 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
       'gaji': '8 - 15 jt',
       'experience': '2 - 5',
       'type_work': ['Fulltime', 'Remote', 'Onsite'],
-      'logo': 'assets/images/grab.png'
+      'logo': 'assets/images/grab.png',
+        'isSaved': false,
     },
   ];
   @override
@@ -299,7 +311,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _randerTopContentCard(),
+                      _randerTopContentCard(index,item['isSaved']),
                       Padding(
                         padding: const EdgeInsets.only(top: 30.0),
                         child: Row(
@@ -400,14 +412,16 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
 
-  Row _randerTopContentCard() => Row(
+  Row _randerTopContentCard(int index, bool isSaved) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text('1 Days ago', style: Theme.of(context).textTheme.bodyMedium),
           InkWell(
-            onTap: () {},
-            child: const Icon(
-              Icons.bookmark_border_outlined,
+            onTap: () {
+              _saveJob(index);
+            },
+            child:  Icon(isSaved ? Icons.bookmark:
+              Icons.bookmark_border_outlined ,
               size: 30,
             ),
           )
